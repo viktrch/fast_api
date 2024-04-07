@@ -1,30 +1,12 @@
-import asyncio
-from importlib import reload
+from typing import List
 
 
-async def hello():
-    await asyncio.sleep(1)
-    print("Hello")
-async def world():
-    await asyncio.sleep(2)
-    print("World")
-async def main():
-    await asyncio.gather(hello(), world())
-# if __name__ == '__main__':
-#     asyncio.run(main())
+def twoSum(nums: List[int], target: int) -> List[int]:
+        # for i, num in enumerate(nums):
+        #     a = target - num
+        #     if a in nums[i+1:]:
+        #         return [i, nums.index(a, i+1)]
+    return list(i + nums.index(target-num, i+1) for i, num in enumerate(nums) if target - num in nums[i+1:])
 
-from functools import wraps
-reload(wraps)
-def my_decorator(f):
-    @wraps(f)
-    def wrapper(*args, **kwds):
-        print('Calling decorated function')
-        return f(*args, **kwds)
-    return wrapper
+print(twoSum(nums=[2,7,11,15], target=9))
 
-@my_decorator()
-def example():
-    """Docstring"""
-    print('Called example function')
-
-example()
