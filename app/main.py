@@ -11,10 +11,7 @@ fr = FileResponse('index.html')
 
 
 # Пример пользовательских данных (для демонстрационных целей)
-fake_users = {
-    1: {"username": "john_doe", "email": "john@example.com"},
-    2: {"username": "jane_smith", "email": "jane@example.com"},
-}
+
 
 
 @app.get('/')
@@ -71,3 +68,20 @@ if __name__ == "__main__":
 @app.post('/create_user')
 async def create_user(user: UserCreate):
     return user
+
+
+from data import sample_products, fake_users
+
+
+@app.get('/product/{product_id}')
+async def get_product(product_id: int):
+    return [el for el in sample_products if el['product_id'] == product_id][0]
+
+
+@app.get('/products/search')
+async def get_products(keyword: str, category: str = None, limit: int = 10):
+    res = []
+    for prod in sample_products:
+        if keyword in prod['name'] and (prod['category'] == category or category is None):
+            res.append(prod)
+    return res[:limit]

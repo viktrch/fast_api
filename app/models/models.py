@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, PositiveInt
+from unicodedata import decimal
 
 
 class User(BaseModel):
@@ -27,3 +28,10 @@ class UserCreate(BaseModel):
     email: EmailStr
     age: PositiveInt | None = None
     is_subscribed: bool | None = None
+
+
+# class Product(BaseModel):
+#     product_id: int
+#     name: str
+#     category: str
+#     price: decimal
